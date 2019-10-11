@@ -8,6 +8,28 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  String currentPlayer = "X";
+  Icon player1 = Icon(Icons.close, size: 56, color: Colors.white,);
+  Icon player2 = Icon(FontAwesomeIcons.circle, size: 56, color: Colors.white,);
+  List<List<Icon>> board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+  ];
+
+  Icon playerIcon = null;
+
+  void updatePlayerWithIcon(String x) {
+    // simple function to update icon and also change value of current player
+    if (x == "X") {
+      currentPlayer = "O";
+      playerIcon = player1;
+    } else if (x == "O") {
+      playerIcon = player2;
+      currentPlayer = "X";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +80,51 @@ class _InputPageState extends State<InputPage> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          new ReusableBox(),
-                          new ReusableBox(),
-                          new ReusableBox(),
+                          new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[0][0] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[0][0] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[0][0]
+                          ),
+                          new ReusableBox(
+                              tapCallBack: (){
+                                setState(() {
+                                  if(currentPlayer == "X"){
+                                    board[0][1] = player1;
+                                    currentPlayer = "O";
+                                  }
+                                  else if(currentPlayer == "O") {
+                                    board[0][1] = player2;
+                                    currentPlayer = "X";
+                                  }
+                                });
+                              },
+                              child:board[0][1]
+                          ),
+                          new ReusableBox(
+                              tapCallBack: (){
+                                setState(() {
+                                  if(currentPlayer == "X"){
+                                    board[0][2] = player1;
+                                    currentPlayer = "O";
+                                  }
+                                  else if(currentPlayer == "O") {
+                                    board[0][2] = player2;
+                                    currentPlayer = "X";
+                                  }
+                                });
+                              },
+                              child:board[0][2]
+                          ),
                         ],
                       ),
                     ],
@@ -76,9 +140,51 @@ class _InputPageState extends State<InputPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        new ReusableBox(),
-                        new ReusableBox(),
-                        new ReusableBox()
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[1][0] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[1][0] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[1][0]
+                        ),
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[1][1] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[1][1] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[1][1]
+                        ),
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[1][2] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[1][2] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[1][2]
+                        )
                       ],
                     ),
                   ],
@@ -93,9 +199,51 @@ class _InputPageState extends State<InputPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        new ReusableBox(),
-                        new ReusableBox(),
-                        new ReusableBox()
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[2][0] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[2][0] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[2][0]
+                        ),
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[2][1] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[2][1] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[2][1]
+                        ),
+                        new ReusableBox(
+                            tapCallBack: (){
+                              setState(() {
+                                if(currentPlayer == "X"){
+                                  board[2][2] = player1;
+                                  currentPlayer = "O";
+                                }
+                                else if(currentPlayer == "O") {
+                                  board[2][2] = player2;
+                                  currentPlayer = "X";
+                                }
+                              });
+                            },
+                            child:board[2][2]
+                        )
                       ],
                     ),
                   ],
@@ -130,14 +278,19 @@ class _InputPageState extends State<InputPage> {
 class ReusableBox extends StatelessWidget {
   final Color color;
   final Widget child;
-  ReusableBox({this.color = const Color(0xFF1e55bc), this.child});
+  final Function tapCallBack;
+  ReusableBox( {this.color = const Color(0xFF1e55bc), this.child, this.tapCallBack,});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color : Colors.blue.withOpacity(0.5),
-      child: SizedBox(
-        height: 72,
-        width: 64,
+    return GestureDetector(
+      onTap: tapCallBack,
+      child: Container(
+        color : Colors.blue.withOpacity(0.5),
+        child: SizedBox(
+          height: 72,
+          width: 64,
+          child: child,
+        ),
       ),
     );
   }
