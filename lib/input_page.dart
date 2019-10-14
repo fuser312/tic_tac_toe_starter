@@ -9,6 +9,11 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   String currentPlayer = "X";
+  String move = "Player X to move";
+
+
+
+
   Icon player1 = Icon(Icons.close, size: 56, color: Colors.white,);
   Icon player2 = Icon(FontAwesomeIcons.circle, size: 56, color: Colors.white,);
   List<List<Icon>> board = [
@@ -17,10 +22,27 @@ class _InputPageState extends State<InputPage> {
     [null, null, null]
   ];
 
+  void updateBoard(newBoard){
+    if((newBoard[0][0] == player1 && newBoard[0][1] == player1 && newBoard[0][2] == player1)
+    || newBoard[0][0] == player1 && newBoard[1][0] == player1 && newBoard[2][0] == player1
+    || newBoard[2][0] == player1 && newBoard[2][1] == player1 && newBoard[2][2] == player1
+    || newBoard[0][2] == player1 && newBoard[1][2] == player1 && newBoard[2][2] == player1
+    || newBoard[0][0] == player1 && newBoard[1][1] == player1 && newBoard[2][2] == player1){
+      move = "Congratulations X Won!";
+    }
+
+    else if((newBoard[0][0] == player2 && newBoard[0][1] == player2 && newBoard[0][2] == player2)
+        || newBoard[0][0] == player2 && newBoard[1][0] == player2 && newBoard[2][0] == player2
+        || newBoard[2][0] == player2 && newBoard[2][1] == player2 && newBoard[2][2] == player2
+        || newBoard[0][2] == player2 && newBoard[1][2] == player2 && newBoard[2][2] == player2
+        || newBoard[0][0] == player2 && newBoard[1][1] == player2 && newBoard[2][2] == player2){
+      move = "Congratulations O Won!";
+    }
+  }
   Icon playerIcon = null;
 
+
   void updatePlayerWithIcon(String x) {
-    // simple function to update icon and also change value of current player
     if (x == "X") {
       currentPlayer = "O";
       playerIcon = player1;
@@ -62,7 +84,7 @@ class _InputPageState extends State<InputPage> {
               ),
               Expanded(
                 flex: 1,
-                child: Text("Player X to Move", style: TextStyle(
+                child: Text("$move", style: TextStyle(
                     fontSize: 20,
                     color: Colors.white,
                     fontWeight: FontWeight.bold
@@ -80,48 +102,24 @@ class _InputPageState extends State<InputPage> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          new ReusableBox(
+                          ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[0][0] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[0][0] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(0, 0);
+                              updateBoard(board);
                             },
                             child:board[0][0]
                           ),
-                          new ReusableBox(
+                          ReusableBox(
                               tapCallBack: (){
-                                setState(() {
-                                  if(currentPlayer == "X"){
-                                    board[0][1] = player1;
-                                    currentPlayer = "O";
-                                  }
-                                  else if(currentPlayer == "O") {
-                                    board[0][1] = player2;
-                                    currentPlayer = "X";
-                                  }
-                                });
+                                playerMove(0, 1);
+                                updateBoard(board);
                               },
                               child:board[0][1]
                           ),
-                          new ReusableBox(
+                          ReusableBox(
                               tapCallBack: (){
-                                setState(() {
-                                  if(currentPlayer == "X"){
-                                    board[0][2] = player1;
-                                    currentPlayer = "O";
-                                  }
-                                  else if(currentPlayer == "O") {
-                                    board[0][2] = player2;
-                                    currentPlayer = "X";
-                                  }
-                                });
+                                playerMove(0, 2);
+                                updateBoard(board);
                               },
                               child:board[0][2]
                           ),
@@ -140,51 +138,27 @@ class _InputPageState extends State<InputPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[1][0] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[1][0] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(1, 0);
+                              updateBoard(board);
                             },
                             child:board[1][0]
                         ),
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[1][1] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[1][1] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(1, 1);
+                              updateBoard(board);
                             },
                             child:board[1][1]
                         ),
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[1][2] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[1][2] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(1, 2);
+                              updateBoard(board);
                             },
                             child:board[1][2]
-                        )
+                        ),
                       ],
                     ),
                   ],
@@ -199,51 +173,27 @@ class _InputPageState extends State<InputPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[2][0] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[2][0] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(2, 0);
+                              updateBoard(board);
                             },
                             child:board[2][0]
                         ),
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[2][1] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[2][1] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(2, 1);
+                              updateBoard(board);
                             },
                             child:board[2][1]
                         ),
-                        new ReusableBox(
+                        ReusableBox(
                             tapCallBack: (){
-                              setState(() {
-                                if(currentPlayer == "X"){
-                                  board[2][2] = player1;
-                                  currentPlayer = "O";
-                                }
-                                else if(currentPlayer == "O") {
-                                  board[2][2] = player2;
-                                  currentPlayer = "X";
-                                }
-                              });
+                              playerMove(2, 2);
+                              updateBoard(board);
                             },
                             child:board[2][2]
-                        )
+                        ),
                       ],
                     ),
                   ],
@@ -256,7 +206,20 @@ class _InputPageState extends State<InputPage> {
                   child: Card(
                     color: Colors.blue.withOpacity(0.5),
                     child: FlatButton(
-                      child: Text("Reset", style: TextStyle(fontSize: 24, color: Colors.white),),
+                      child: Text(
+                        "Reset", style: TextStyle(
+                          fontSize: 24, color: Colors.white
+                      ),
+                      ),
+                      onPressed: (){
+                        setState(() {
+                          board = [
+                            [null, null, null],
+                            [null, null, null],
+                            [null, null, null]
+                          ];
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -272,6 +235,26 @@ class _InputPageState extends State<InputPage> {
         ),
 
     );
+  }
+
+  void playerMove(int a, int b) {
+    if (board[a][b]!= null){
+      print("Why?");
+    }
+    else if (board[a][b] == null) {
+      setState(() {
+        if(currentPlayer == "X"){
+          move = "Player O to move";
+          board[a][b] = player1;
+          currentPlayer = "O";
+        }
+        else if(currentPlayer == "O") {
+          move = "Player X to move";
+          board[a][b] = player2;
+          currentPlayer = "X";
+        }
+      });
+    }
   }
 }
 
@@ -295,3 +278,5 @@ class ReusableBox extends StatelessWidget {
     );
   }
 }
+
+
